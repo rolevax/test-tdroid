@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
+}
+
+apply plugin: 'com.android.application'
+repositories {
+	mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    androidTestCompile fileTree(dir: 'libs', include: 'robotium-solo-5.5.3.jar')
+}
+
+android {
+    compileSdkVersion 'android-23'
+    buildToolsVersion '23.0.2'
+
+    android {
+        defaultConfig {
+            minSdkVersion 15
+        }
+
+        lintOptions {
+            abortOnError false
+        }
+        sourceSets
+                {
+                    androidTest
+                            {
+                                res.srcDirs = ['res']
+                                assets.srcDirs = ['assets']
+                            }
+                }
+    }
+    buildTypes {
+        release {
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+}
+
+task assembleDebug(overwrite: true) {}
+
+task copyTask(type: Copy) {
+    from '../test_apk/com.twitter.android_debug.apk'
+    into 'build/outputs/apk/'
+    rename {
+        'robotium-debug.apk'
+    }
+}
+
+assembleDebug.dependsOn copyTask

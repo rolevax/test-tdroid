@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/gfp/doc/hw/cs/prj4/test-tdroid/test_twitter/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_launcher.png",
+        "source": "/home/gfp/doc/hw/cs/prj4/test-tdroid/test_twitter/src/main/res/drawable-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/gfp/doc/hw/cs/prj4/test-tdroid/robotium/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_launcher.png",
+        "source": "/home/gfp/doc/hw/cs/prj4/test-tdroid/robotium/src/main/res/drawable-mdpi/ic_launcher.png"
+    }
+]
