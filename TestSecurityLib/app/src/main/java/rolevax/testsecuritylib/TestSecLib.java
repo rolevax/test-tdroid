@@ -38,13 +38,11 @@ public class TestSecLib {
 
     public static void digest(String taint, boolean leak) {
         try {
-            Log.i("start", "message digest");
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(taint.getBytes());
             byte[] digest = messageDigest.digest();
-            Log.i("haha", new String(digest));
             if (leak) {
-                send(("digest " + digest).getBytes());
+                send(("digest " + new String(digest)).getBytes());
             }
         } catch (NoSuchAlgorithmException e) {
             Log.e("wtx", "no MD% algorithm");
@@ -53,26 +51,21 @@ public class TestSecLib {
 
     public static void mac(String taint, boolean leak) {
         try {
-            Log.i("start", "MAC");
             KeyGenerator keyGen = KeyGenerator.getInstance("HmacMD5");
             Mac mac = Mac.getInstance("HmacMD5");
             SecretKey MD5key = keyGen.generateKey();
             mac.init(MD5key);
             mac.update(taint.getBytes());
             byte[] macBytes = mac.doFinal();
-            Log.i("haha", new String(macBytes));
             if (leak)
-                send(("mac" + macBytes).getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("wtx", "no HmacHD5 algorithm");
-        } catch (InvalidKeyException e) {
-            Log.e("wtx", "invalid key???");
+                send(("mac" + new String(macBytes)).getBytes());
+        } catch (Exception e) {
+            Log.e("wtx", "exception in mac");
         }
     }
 
     public static void privateKey(String taint, boolean leak) {
         try {
-            Log.i("start", "symmetric encryption");
             KeyGenerator keyGen = KeyGenerator.getInstance("DES");
             keyGen.init(56);
             Key key = keyGen.generateKey();
@@ -80,15 +73,13 @@ public class TestSecLib {
             System.out.println( "\n" + cipher.getProvider().getInfo());
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] cipherText = cipher.doFinal(taint.getBytes());
-            Log.i("haha", new String(cipherText));
             if (leak)
-                send(("private key cipher " + cipherText).getBytes());
+                send(("private key cipher " + new String(cipherText)).getBytes());
 
             cipher.init(Cipher.DECRYPT_MODE, key);
             byte[] newPlainText = cipher.doFinal(cipherText);
-            Log.i("haha", new String(newPlainText));
             if (leak)
-                send(("private key plain " + newPlainText).getBytes());
+                send(("private key plain " + new String(newPlainText)).getBytes());
         } catch (Exception e) {
             Log.e("wtx", "exception in symmetric key encryption");
         }
@@ -96,22 +87,19 @@ public class TestSecLib {
 
     public static void publicKey(String taint, boolean leak) {
         try {
-            Log.i("start", "public key encryption");
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
             keyGen.initialize(1024);
             KeyPair key = keyGen.generateKeyPair();
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key.getPublic());
             byte[] cipherText = cipher.doFinal(taint.getBytes());
-            Log.i("haha", new String(cipherText));
             if (leak)
-                send(("public key cipher" + cipherText).getBytes());
+                send(("public-key cipher " + new String(cipherText)).getBytes());
 
             cipher.init(Cipher.DECRYPT_MODE, key.getPrivate());
             byte[] newPlainText = cipher.doFinal(cipherText);
-            Log.i("haha", new String(newPlainText));
             if (leak)
-                send(("public key plain" + newPlainText).getBytes());
+                send(("public-key plain " + new String(newPlainText)).getBytes());
         } catch (Exception e) {
             Log.e("wtx", "exception in public key encryption");
         }
@@ -119,7 +107,6 @@ public class TestSecLib {
 
     public static void digitalCertificate(String taint, boolean leak) {
         try {
-            Log.i("start", "digital signature");
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
             keyGen.initialize(1024);
 
@@ -129,9 +116,8 @@ public class TestSecLib {
             sig.initSign(key.getPrivate());
             sig.update(taint.getBytes());
             byte[] signature = sig.sign();
-            Log.i("haha", new String(signature));
             if (leak)
-                send(("signature " + signature).getBytes());
+                send(("signature " + new String(signature)).getBytes());
 
             sig.initVerify(key.getPublic());
             sig.update(taint.getBytes());
@@ -144,6 +130,7 @@ public class TestSecLib {
     }
 
     private static void send(final byte[] data) {
+        Log.i("send", "sending " + new String(data));
         new Thread() {
             @Override
             public void run() {
