@@ -15,30 +15,85 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="600px"
-        android:text="Test message digest, MAC, private key encryption, public key encryption, digital signature using java.security \nOutputs are in Logcat.  This works when GPS is available."
+        android:layout_height="200px"
+        android:text="digest, MAC, private key, public key, digital signature using java.security \nOutputs are in Logcat.  This works when GPS is available."
         android:id="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:textColor="#6c21a9" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test without sending to Internet"
+        android:text="test all, no sending"
         android:id="@+id/no_net_button"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test and send outputs for 7 times"
+        android:text="test all, sending"
         android:id="@+id/net_button"
         android:layout_below="@+id/no_net_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="digest"
+        android:id="@+id/digest_betton"
+        android:layout_above="@+id/dc_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mac"
+        android:id="@+id/mac_button"
+        android:layout_alignBottom="@+id/digest_betton"
+        android:layout_toRightOf="@+id/digest_betton"
+        android:layout_toEndOf="@+id/digest_betton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="prikey"
+        android:id="@+id/private_button"
+        android:layout_alignTop="@+id/mac_button"
+        android:layout_toRightOf="@+id/no_net_button"
+        android:layout_toEndOf="@+id/no_net_button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pubkey"
+        android:id="@+id/public_button"
+        android:layout_below="@+id/digest_betton"
+        android:layout_toLeftOf="@+id/dc_button"
+        android:layout_toStartOf="@+id/dc_button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dc"
+        android:id="@+id/dc_button"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/mac_button"
+        android:layout_alignStart="@+id/mac_button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(raw)"
+        android:id="@+id/raw_button"
+        android:layout_below="@+id/private_button"
+        android:layout_toRightOf="@+id/dc_button"
+        android:layout_toEndOf="@+id/dc_button" />
 
 </RelativeLayout>

@@ -34,6 +34,42 @@ public class MainActivity extends AppCompatActivity {
                 doTest(true);
             }
         });
+        final Button button3 = (Button) findViewById(R.id.raw_button);
+        button3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TestSecLib.raw(taint);
+            }
+        });
+        final Button button4 = (Button) findViewById(R.id.digest_betton);
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TestSecLib.digest(taint, true);
+            }
+        });
+        final Button button5 = (Button) findViewById(R.id.mac_button);
+        button5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TestSecLib.mac(taint, true);
+            }
+        });
+        final Button button6 = (Button) findViewById(R.id.private_button);
+        button6.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TestSecLib.privateKey(taint, true);
+            }
+        });
+        final Button button7 = (Button) findViewById(R.id.public_button);
+        button7.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TestSecLib.publicKey(taint, true);
+            }
+        });
+        final Button button8 = (Button) findViewById(R.id.dc_button);
+        button8.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TestSecLib.digitalCertificate(taint, true);
+            }
+        });
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
@@ -79,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doTest(boolean leak) {
-        if (null == taint) {
+        if (taint.equals("not tainted yet")) {
             Log.i("info", "haven't get location info");
         } else {
             TestSecLib.test(taint, leak);
         }
     }
 
-    String taint = null;
+    String taint = "not tainted yet";
 }
